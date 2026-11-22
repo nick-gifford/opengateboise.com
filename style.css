@@ -748,3 +748,112 @@ details.q p {
 @media print {
   .js [data-cine] .w, .js [data-rise] { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
+
+/* ===== Flow (after picturestone.co): one statement per screen, very large type, deep whitespace,
+   and a scroll-linked turn from night (pine-black) to morning (paper) between "Jake and Nick Gifford"
+   and "Questions". Static colours below are the no-JS / fallback look; with JS the body colour is
+   driven by --bg/--fg and the sections go transparent so the turn is one continuous wash. ===== */
+:root {
+  --night: #121a17;
+  --night-fg: #f2f1ec;
+  --night-dim: rgba(242, 241, 236, 0.66);
+  --screen-pad: clamp(110px, 24vh, 260px);
+}
+body { background: var(--night); }
+.about, .faq, .cta { position: relative; }
+.about {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: var(--screen-pad) 0;
+  background: var(--night);
+  color: var(--night-fg);
+}
+.about .wrap { width: min(var(--max), calc(100% - 2.25rem)); }
+.about-copy { max-width: none; }
+.about-line {
+  font-size: clamp(2.7rem, 10.5vw, 10.5rem);
+  font-weight: 750;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  max-width: none;
+  color: inherit;
+}
+.about-text {
+  margin-top: clamp(1.4rem, 3.5vw, 3rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  line-height: 1.5;
+  max-width: 34rem;
+  color: var(--night-dim);
+}
+@media (min-width: 820px) {
+  .about-grid:not(:has(.about-photo)) .about-copy { max-width: none; text-align: center; }
+  .about-grid:not(:has(.about-photo)) .about-text { max-width: 38rem; }
+}
+
+.faq {
+  padding: var(--screen-pad) 0 clamp(70px, 12vh, 140px);
+  background: var(--paper);
+}
+.faq > .wrap > h2 {
+  font-size: clamp(2.7rem, 9vw, 9rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  margin: 0 0 clamp(1.8rem, 5vw, 4rem);
+}
+details.q { padding: clamp(1rem, 1.8vw, 1.5rem) 0; }
+details.q summary { font-size: clamp(1.12rem, 1.55vw, 1.4rem); font-weight: 600; letter-spacing: -0.02em; }
+details.q p { font-size: clamp(1rem, 1.15vw, 1.1rem); }
+
+.cta {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: clamp(90px, 18vh, 200px) 0 var(--screen-pad);
+  background: var(--paper);
+}
+.cta-grid { display: block !important; }
+.cta h2 {
+  font-size: clamp(2.9rem, 10.5vw, 10.5rem);
+  font-weight: 750;
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  margin: 0 0 clamp(1.2rem, 3vw, 2.4rem);
+}
+.cta .cta-lede {
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  line-height: 1.45;
+  max-width: 34rem !important;
+  margin: 0 0 clamp(1.8rem, 4vw, 3.2rem) !important;
+}
+.cta-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+
+/* With JS: one continuous wash driven by scroll (see mood() in index.html) */
+.js body { background: var(--bg, var(--night)); }
+.js .about, .js .faq, .js .cta { background: transparent; color: var(--fg, var(--ink)); }
+.js .about { color: var(--fg, var(--night-fg)); }
+.js .about-text, .js .cta .cta-lede, .js details.q p { color: var(--dim, var(--muted)); }
+.js details.q, .js details.q:last-child { border-color: var(--rule, var(--line)); }
+.js details.q summary { color: var(--fg, var(--ink)); }
+.js details.q summary::after { color: var(--dim, var(--quiet)); }
+.js .cta .action-phone, .js .action-email { color: var(--dim, var(--muted)); }
+.js .faq a { color: var(--fg, var(--ink)); }
+
+/* Big headings focus in a little slower, like picturestone's calm half */
+@media (prefers-reduced-motion: no-preference) {
+  .js .about [data-cine] .w, .js .faq [data-cine] .w, .js .cta [data-cine] .w {
+    transition-duration: 1.4s, 1.7s, 1.8s;
+  }
+}
+@media (max-width: 819px) {
+  :root { --screen-pad: clamp(96px, 20vh, 180px); }
+  .about { min-height: 88svh; }
+  .cta { min-height: 92svh; }
+}
+
+#questions { scroll-margin-top: calc(0.5rem - var(--screen-pad)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-panel, .hero-media { transform: none !important; opacity: 1 !important; }
+}
