@@ -759,7 +759,7 @@ details.q p {
   --night-dim: rgba(242, 241, 236, 0.66);
   --screen-pad: clamp(110px, 24vh, 260px);
 }
-body { background: var(--night); }
+body.home { background: var(--night); }
 .about, .faq, .cta { position: relative; }
 .about {
   min-height: 100svh;
@@ -830,7 +830,7 @@ details.q p { font-size: clamp(1rem, 1.15vw, 1.1rem); }
 .cta-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 
 /* With JS: one continuous wash driven by scroll (see mood() in index.html) */
-.js body { background: var(--bg, var(--night)); }
+.js body.home { background: var(--bg, var(--night)); }
 .js .about, .js .faq, .js .cta { background: transparent; color: var(--fg, var(--ink)); }
 .js .about { color: var(--fg, var(--night-fg)); }
 .js .about-text, .js .cta .cta-lede, .js details.q p { color: var(--dim, var(--muted)); }
