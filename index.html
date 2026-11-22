@@ -69,18 +69,6 @@
       </div>
     </section>
 
-    <section class="about" aria-label="Who you’re talking to">
-      <div class="wrap about-grid">
-        <!-- Photo slot: add images/nick-jake.jpg (4:5, 1200×1500 or larger) later:
-             <img class="about-photo" src="images/nick-jake.jpg" width="1200" height="1500" alt="Nick and Jake Gifford.">
-             CSS already supports it. No placeholder graphic, stock people, or “photo coming” text. -->
-        <div class="about-copy">
-        <h2 class="about-line" data-cine><span class="w">Jake</span> <span class="w">and</span> <span class="w">Nick</span> <span class="w">Gifford</span></h2>
-        <p class="about-text" data-rise>We grew up right here in the Treasure Valley. We attended school here, and we work here and raise our families here!</p>
-        </div>
-      </div>
-    </section>
-
     <section id="questions" class="faq" aria-label="Questions">
       <div class="wrap">
         <h2 data-cine><span class="w">Questions</span></h2>
@@ -105,6 +93,18 @@
             <summary>If I text, what happens?</summary>
             <p>If you text this number, Open Gate may text you back about your inquiry or to confirm an appointment. Message frequency varies. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out. Consent is not required to talk or to sell. Full terms are on the <a href="sms-terms.html">SMS Terms</a> page.</p>
           </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" aria-label="Who you’re talking to">
+      <div class="wrap about-grid">
+        <!-- Photo slot: add images/nick-jake.jpg (4:5, 1200×1500 or larger) later:
+             <img class="about-photo" src="images/nick-jake.jpg" width="1200" height="1500" alt="Nick and Jake Gifford.">
+             CSS already supports it. No placeholder graphic, stock people, or “photo coming” text. -->
+        <div class="about-copy">
+        <h2 class="about-line" data-cine><span class="w">Jake</span> <span class="w">and</span> <span class="w">Nick</span> <span class="w">Gifford</span></h2>
+        <p class="about-text" data-rise>We grew up right here in the Treasure Valley. We attended school here, and we work here and raise our families here!</p>
         </div>
       </div>
     </section>
@@ -172,8 +172,8 @@
       document.querySelectorAll(".hero [data-rise]").forEach(function (el, n) {
         el.style.transitionDelay = 380 + n * 120 + "ms";
       });
-      /* night to morning: the page colour turns as "Questions" comes up (colour only, so it runs under reduced motion too) */
-      var root = document.documentElement, turn = document.getElementById("questions");
+      /* night to morning: the page colour turns as "Jake and Nick Gifford" comes up (colour only, so it runs under reduced motion too) */
+      var root = document.documentElement, turn = document.querySelector(".about");
       var N = { bg: [18, 26, 23], fg: [242, 241, 236], dim: [176, 182, 178], rule: [44, 54, 50] };
       var M = { bg: [245, 243, 239], fg: [28, 28, 30], dim: [58, 58, 60], rule: [222, 220, 214] };
       function mix(a, b, t) { return "rgb(" + a.map(function (v, i) { return Math.round(v + (b[i] - v) * t); }).join(",") + ")"; }
@@ -181,13 +181,15 @@
         if (!turn) return;
         var h = window.innerHeight, y = window.scrollY || window.pageYOffset;
         var top = turn.getBoundingClientRect().top + y;
-        var t = Math.min(1, Math.max(0, (y + h * 0.7 - top) / (h * 0.6)));
+        var t = Math.min(1, Math.max(0, (y + h * 0.75 - top) / (h * 0.5)));
         var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        var ink = Math.min(1, Math.max(0, (e - 0.4) / 0.2));
-        root.style.setProperty("--bg", mix(N.bg, M.bg, e));
+        /* ink flips in one step at the grey where light and dark text read equally well (~3.9:1),
+           so text is never lost in the wash; secondary text is the ink eased 18% toward the ground */
+        var bg = mix(N.bg, M.bg, e), fg = e > 0.45 ? M.fg : N.fg, g = N.bg.map(function (v, i) { return v + (M.bg[i] - v) * e; });
+        root.style.setProperty("--bg", bg);
         root.style.setProperty("--rule", mix(N.rule, M.rule, e));
-        root.style.setProperty("--fg", mix(N.fg, M.fg, ink));
-        root.style.setProperty("--dim", mix(N.dim, M.dim, ink));
+        root.style.setProperty("--fg", mix(fg, fg, 0));
+        root.style.setProperty("--dim", mix(fg, g, 0.18));
       }
       var mt = false;
       window.addEventListener("scroll", function () {

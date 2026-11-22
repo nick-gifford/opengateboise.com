@@ -857,3 +857,25 @@ details.q p { font-size: clamp(1rem, 1.15vw, 1.1rem); }
 @media (prefers-reduced-motion: reduce) {
   .hero-panel, .hero-media { transform: none !important; opacity: 1 !important; }
 }
+
+/* Order: hero, Questions (night), Jake and Nick Gifford (the turn to morning), CTA (morning).
+   Static colours = no-JS look; with JS the wash below overrides them. */
+.faq {
+  background: var(--night);
+  color: var(--night-fg);
+  padding: var(--screen-pad) 0;
+}
+.faq > .wrap > h2, .faq details.q summary, .faq a { color: var(--night-fg); }
+.faq details.q, .faq details.q:last-child { border-color: rgba(242, 241, 236, 0.16); }
+.faq details.q p, .faq details.q summary::after { color: var(--night-dim); }
+.about {
+  background: var(--paper);
+  color: var(--ink);
+}
+.about-text { color: var(--muted); }
+.js .faq > .wrap > h2, .js .faq details.q summary, .js .faq a { color: var(--fg, var(--night-fg)); }
+.js .faq details.q, .js .faq details.q:last-child { border-color: var(--rule, rgba(242, 241, 236, 0.16)); }
+.js .faq details.q p, .js .faq details.q summary::after { color: var(--dim, var(--night-dim)); }
+.js .faq, .js .about { background: transparent; }
+.js .about { color: var(--fg, var(--ink)); }
+.js .about-text { color: var(--dim, var(--muted)); }
