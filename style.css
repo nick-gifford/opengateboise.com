@@ -276,6 +276,8 @@ a:focus-visible, button:focus-visible, .btn:focus-visible, summary:focus-visible
   gap: 0.85rem 1.1rem;
 }
 .btn-primary, .btn-glass { min-width: 7.25rem; }
+.action-group { display: inline-flex; flex-direction: column; align-items: center; }
+.action-group .action-phone { text-align: center; }
 .action-phone {
   margin: 0.8rem 0 0;
   font-size: 1.05rem;
