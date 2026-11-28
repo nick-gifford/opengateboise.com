@@ -879,3 +879,19 @@ details.q p { font-size: clamp(1rem, 1.15vw, 1.1rem); }
 .js .faq, .js .about { background: transparent; }
 .js .about { color: var(--fg, var(--ink)); }
 .js .about-text { color: var(--dim, var(--muted)); }
+
+.site-footer .areas-line,
+.site-footer .situations-line {
+  margin: 0 0 0.65rem;
+  color: var(--quiet);
+  max-width: 46rem;
+}
+.site-footer .areas-line a,
+.site-footer .situations-line a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.page-main .page-cta { margin: 1.75rem 0 0.5rem; }
+.page-main .faq-list { margin-top: 2.5rem; }
+.page-main .action-email { margin: 0 0 0.25rem; }
